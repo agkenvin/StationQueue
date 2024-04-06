@@ -1,8 +1,8 @@
 
 Requirments:
 
-1. Should be able to add 1 or more songs to the queue. Songs added will append to the end of the list.
-2. Should be able to remove 1 or more songs from any position in the queue. 
+1. Should be able to add 1 or more songs to the queue at a single time. Songs added will append to the end of the list.
+2. Should be able to remove 1 or more songs from any position in the queue at a single time. 
 3. Songs can be repeated, deleting a song queued more than once should not delete all instances of the song.
 4. State must be maintained in memory.
 
@@ -12,10 +12,9 @@ Solution:
 the built in Swagger UI. The necessary Models will be Songs, Queues, and Users, because the desired solution here is only for a single
 user Users will not actually be implemented. For songs I will seed memory with a list of songs to select from and therefore will not
 implement the associated controller (as this functionality is also not requested in the problem statement) beyond a GET to be able
-to view the available song selection. Queue Model and controller will be fully implemented. To persist the Queue, I will simply 
-use a static field in the Queue service. A more robust/resilient solution would use a db and the cache however it is not the simplest solution as it 
-requires extra setup, and I have had the difference between data in memory and data persisted to disk strongly reinforced leading me
-to the conclusion keeping the queue on the server is the desired solution. 
+to view the available song selection. Queue Model and controller will be fully implemented. To persist the Queue, I will store the 
+queue in a MongoDB. This was initially implemented using only static fields to keep the queue in memory. Iterated and extended the
+solution to use MongoDB. 
 
 
 Models:
@@ -27,7 +26,7 @@ Models:
     - int Duration
 
     Queue
-    - int Id
+    - string Id
     - List<Song> Songs
     - int OwnerId
     - DateTime LastSongStarted
@@ -43,5 +42,7 @@ Endpoints/Controllers:
 
     Queue:
         GET Queue/{id}
-        POST Queue/AddSongs
-        DELETE Queue/DeleteSongs
+        DELETE Queue/{id}
+        POST Queue
+        PUT Queue/AddSongs
+        PUT Queue/DeleteSongs

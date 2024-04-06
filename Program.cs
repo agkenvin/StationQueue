@@ -1,3 +1,4 @@
+using StationQueue.Data;
 using StationQueue.Models;
 using StationQueue.Services;
 using StationQueue.Services.Interfaces;
@@ -10,6 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Add developer defined services
+builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDatabaseSettings"));
+builder.Services.AddSingleton<MongoContext>();
 builder.Services.AddScoped<ISongService, SongService>(); 
 builder.Services.AddScoped<IQueueService, QueueService>(); 
 
