@@ -13,8 +13,8 @@ the built in Swagger UI. The necessary Models will be Songs, Queues, and Users, 
 user Users will not actually be implemented. For songs I will seed memory with a list of songs to select from and therefore will not
 implement the associated controller (as this functionality is also not requested in the problem statement) beyond a GET to be able
 to view the available song selection. Queue Model and controller will be fully implemented. To persist the Queue, I will store the 
-queue in a MongoDB. This was initially implemented using only static fields to keep the queue in memory. Iterated and extended the
-solution to use MongoDB. 
+queue in a MongoDB and in memory cache using a lazy population, cache-aside approach. This was initially implemented using only
+static fields to keep the queue in memory. Iterated and extended the solution to use MongoDB and in memory cache. 
 
 
 Models:

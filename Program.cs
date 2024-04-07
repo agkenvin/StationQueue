@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Caching.Memory;
 using StationQueue.Data;
 using StationQueue.Models;
 using StationQueue.Services;
@@ -15,6 +16,10 @@ builder.Services.AddSwaggerGen();
 //Add developer defined services
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDatabaseSettings"));
 builder.Services.AddSingleton<MongoContext>();
+
+builder.Services.AddMemoryCache();
+builder.Services.AddLogging();
+
 builder.Services.AddScoped<ISongService, SongService>(); 
 builder.Services.AddScoped<IQueueService, QueueService>(); 
 

@@ -46,7 +46,16 @@ namespace StationQueue.Controllers
         [Route("AddSongs")]
         public async Task<ActionResult<ServiceResponse<QueueModel>>> AddSongs(string id, List<SongModel> songs)
         {
-            return Ok(await _queueService.AddSongs(id, songs));
+
+            var response = await _queueService.AddSongs(id, songs);
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            else
+            {
+                return Ok(response);
+            }
         }
 
         //Take in a list of indices, representing the songs current position in the queue to delete
